@@ -1,5 +1,6 @@
 package com.frontend_iei.screens
 
+import ApiClient
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,13 +30,14 @@ import com.frontend_iei.Screen
 import com.frontend_iei.components.CheckboxWithText
 import com.frontend_iei.components.Contenido
 import com.frontend_iei.components.MenuNavegacion
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.jetbrains.skia.paragraph.TextBox
 
 @Composable
 @Preview
 fun ScreenCarga() {
-
+    val scope = rememberCoroutineScope()
     var allChecked by remember { mutableStateOf(false) }
     var GALchecked by remember { mutableStateOf(false) }
     var CVchecked by remember { mutableStateOf(true) }
@@ -100,13 +103,29 @@ fun ScreenCarga() {
                 Text("Cancelar")
             }
             Button(
-                onClick = { },
-                enabled = true,
+                onClick = {
+                    scope.launch {
+                        println("Cargar Estaciones")
+                        ApiClient().use { api ->
+                            val fuentes = listOf("GAL", "CV", "CAT")
+                            //val resultadoCarga = api.cargarEstaciones(fuentes)
+                            //println(resultadoCarga)
+                        }
+                    }
+                },
+                enabled = true
             ) {
                 Text("Cargar")
             }
             Button(
-                onClick = { },
+                onClick = {
+                    scope.launch {
+                        println("Borrar todos los Datos")
+                        ApiClient().use { api ->
+                            //api.borrarDatos()
+                        }
+                    }
+                },
                 enabled = true
             ) {
                 Text("Borrar almacén de datos")
