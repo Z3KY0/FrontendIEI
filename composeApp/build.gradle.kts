@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.composeHotReload)
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+
     kotlin("plugin.serialization") version "1.9.22"
 }
 
@@ -43,7 +45,9 @@ kotlin {
 compose.desktop {
     application {
         mainClass = "com.frontend_iei.MainKt"
-
+        buildTypes.release.proguard {
+            isEnabled = false
+        }
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "com.frontend_iei"
