@@ -1,4 +1,7 @@
 import com.frontend_iei.dtos.EstacionDTO
+import com.frontend_iei.dtos.FilterDTO
+import com.frontend_iei.dtos.LocalidadDTO
+import com.frontend_iei.dtos.ProvinciaDTO
 import io.ktor.client.*
 import io.ktor.client.call.body
 import io.ktor.client.engine.cio.*
@@ -13,7 +16,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import java.io.Closeable
 
-private const val BASE_URL = "http://localhost:8080/api/"
+private const val BASE_URL = "http://localhost:8080"
 
 class ApiClient() : Closeable {
 
@@ -49,7 +52,16 @@ class ApiClient() : Closeable {
                 parameter("nombre", nombre)
             }
         }
-
+    suspend fun getLocalidadById(idLocalidad: Long): ApiResult<LocalidadDTO> =
+        safeRequest {
+            client.get("/api/localidad/$idLocalidad") {
+            }
+        }
+    suspend fun getProvinciaById(idProvincia: Long): ApiResult<ProvinciaDTO> =
+        safeRequest {
+            client.get("/api/provincia/$idProvincia") {
+            }
+        }
     suspend fun getAll(): ApiResult<List<EstacionDTO>> =
         safeRequest {
             client.get("/api/estacion/getAll")

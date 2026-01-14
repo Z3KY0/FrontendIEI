@@ -38,6 +38,12 @@ kotlin {
             implementation(compose.desktop.currentOs)
             implementation("io.ktor:ktor-client-cio:2.3.7")
             implementation(libs.kotlinx.coroutinesSwing)
+            implementation("org.jxmapviewer:jxmapviewer2:2.8") // Stable and available
+            implementation(compose.components.resources)
+            implementation("org.jetbrains.compose.components:components-resources:1.5.11") // O la versión que uses
+
+            // ESTA ES LA IMPORTANTE PARA LOS ICONOS:
+            implementation("org.jetbrains.compose.material:material-icons-extended:1.5.11")
         }
     }
 }

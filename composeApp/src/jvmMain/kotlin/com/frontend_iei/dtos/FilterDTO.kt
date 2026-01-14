@@ -1,8 +1,11 @@
+package com.frontend_iei.dtos
+
 import kotlinx.serialization.Serializable
 
 @Serializable
 data class FilterDTO(
-    val nombre: String? = null,
-    val tipo: String? = null,
-    val localidadId: Long? = null
+    val codigoPostal: String?,
+    val localidad: String?,
+    val provincia: String?,
+    val tipo: TipoEstacion?
 )
