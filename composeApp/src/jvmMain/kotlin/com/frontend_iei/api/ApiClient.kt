@@ -13,7 +13,7 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import java.io.Closeable
 
-private const val BASE_URL = "http://192.168.1.131:8080/api/"
+private const val BASE_URL = "http://localhost:8080/api/"
 
 class ApiClient() : Closeable {
 
