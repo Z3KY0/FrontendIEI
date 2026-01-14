@@ -42,6 +42,12 @@ fun ScreenCarga() {
     var GALchecked by remember { mutableStateOf(false) }
     var CVchecked by remember { mutableStateOf(true) }
     var CATchecked by remember { mutableStateOf(false) }
+    var registrosCorrectos by remember { mutableStateOf(
+        "                               ") }
+    var registrosReparados by remember { mutableStateOf(
+        "") }
+    var registrosRechazados by remember { mutableStateOf(
+        "") }
 
     Column ( (Modifier.padding(50.dp) ) ) {
 
@@ -114,6 +120,25 @@ fun ScreenCarga() {
                             println(fuentes)
                             val resultadoCarga = api.cargarEstaciones(fuentes)
                             println(resultadoCarga)
+
+                            when (resultadoCarga) {
+                                is ApiResult.Success -> {
+                                    val data = resultadoCarga.data
+                                    println("Datos recibidos: $data")
+                                    registrosCorrectos = data.get(0)
+                                    registrosReparados = data.get(1)
+                                    registrosRechazados = data.get(2)
+                                }
+                                is ApiResult.NotFound -> {
+                                    println("No encontrado: ${resultadoCarga.status}")
+                                }
+                                is ApiResult.HttpError -> {
+                                    println("Error HTTP: ${resultadoCarga.status}, body: ${resultadoCarga.body}")
+                                }
+                                is ApiResult.NetworkError -> {
+                                    println("Error de red: ${resultadoCarga.exception.message}")
+                                }
+                            }
                         }
                     }
                 },
@@ -144,14 +169,13 @@ fun ScreenCarga() {
                 .border(1.dp, Color.Black)
                 .padding(8.dp)
         ) {
-            Text("Número de registros cargados correctamente: NN")
+            Text("Número de registros cargados correctamente: " + registrosCorrectos)
             Text("")
             Text("Registros con errores y reparados: ")
-            Text("{Fuente de datos, nombre, Localidad, " +
-                    "motivo del error, operación realizada}")
+            Text(registrosReparados)
             Text("")
             Text("Registros con errores y rechazados: ")
-            Text("{Fuente de datos, nombre, Localidad, motivo del error}")
+            Text(registrosRechazados)
         }
     }
 }
