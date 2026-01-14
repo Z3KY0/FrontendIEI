@@ -107,14 +107,17 @@ fun ScreenCarga() {
                     scope.launch {
                         println("Cargar Estaciones")
                         ApiClient().use { api ->
-                            val fuentes = listOf("GAL", "CV", "CAT")
+                            val fuentes = mutableListOf<String>()
+                            if (GALchecked) { fuentes.add("GAL") }
+                            if (CVchecked) { fuentes.add("CV") }
+                            if (CATchecked) { fuentes.add("CAT") }
+                            println(fuentes)
                             val resultadoCarga = api.cargarEstaciones(fuentes)
-                            //val resultadoCarga = api.getAll()
                             println(resultadoCarga)
                         }
                     }
                 },
-                enabled = true
+                enabled = GALchecked or CVchecked or CATchecked,
             ) {
                 Text("Cargar")
             }
