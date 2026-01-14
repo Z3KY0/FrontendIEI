@@ -67,7 +67,10 @@ class ApiClient() : Closeable {
 
     suspend fun cargarEstaciones(fuentes: List<String>): ApiResult<List<String>> =
         safeRequest {
-            client.post("/api/estacion/cargarEstaciones")
+            client.post("/api/estacion/cargarEstaciones") {
+                contentType(ContentType.Application.Json)
+                setBody(fuentes)
+            }
         }
 
     suspend fun postEstacion(estacion: EstacionDTO): ApiResult<EstacionDTO> =

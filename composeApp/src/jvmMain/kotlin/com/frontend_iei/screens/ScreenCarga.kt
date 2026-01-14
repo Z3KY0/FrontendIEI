@@ -108,8 +108,9 @@ fun ScreenCarga() {
                         println("Cargar Estaciones")
                         ApiClient().use { api ->
                             val fuentes = listOf("GAL", "CV", "CAT")
-                            //val resultadoCarga = api.cargarEstaciones(fuentes)
-                            //println(resultadoCarga)
+                            val resultadoCarga = api.cargarEstaciones(fuentes)
+                            //val resultadoCarga = api.getAll()
+                            println(resultadoCarga)
                         }
                     }
                 },
@@ -122,7 +123,7 @@ fun ScreenCarga() {
                     scope.launch {
                         println("Borrar todos los Datos")
                         ApiClient().use { api ->
-                            //api.borrarDatos()
+                            api.borrarDatos()
                         }
                     }
                 },
