@@ -42,12 +42,11 @@ fun ScreenCarga() {
     var GALchecked by remember { mutableStateOf(false) }
     var CVchecked by remember { mutableStateOf(true) }
     var CATchecked by remember { mutableStateOf(false) }
-    var registrosCorrectos by remember { mutableStateOf(
-        "                               ") }
-    var registrosReparados by remember { mutableStateOf(
-        "") }
-    var registrosRechazados by remember { mutableStateOf(
-        "") }
+    var cargando by remember { mutableStateOf(false) }
+
+    var registrosCorrectos by remember { mutableStateOf("") }
+    var registrosReparados by remember { mutableStateOf("") }
+    var registrosRechazados by remember { mutableStateOf("") }
 
     Column ( (Modifier.padding(50.dp) ) ) {
 
@@ -110,6 +109,10 @@ fun ScreenCarga() {
             }
             Button(
                 onClick = {
+                    cargando = true
+                    registrosCorrectos = "Cargando..."
+                    registrosReparados = "Cargando..."
+                    registrosRechazados = "Cargando..."
                     scope.launch {
                         println("Cargar Estaciones")
                         ApiClient().use { api ->
@@ -139,10 +142,11 @@ fun ScreenCarga() {
                                     println("Error de red: ${resultadoCarga.exception.message}")
                                 }
                             }
+                            cargando = false
                         }
                     }
                 },
-                enabled = GALchecked or CVchecked or CATchecked,
+                enabled = !cargando && GALchecked or CVchecked or CATchecked,
             ) {
                 Text("Cargar")
             }
@@ -167,7 +171,8 @@ fun ScreenCarga() {
         Column(
             modifier = Modifier
                 .border(1.dp, Color.Black)
-                .padding(8.dp)
+                .width(600.dp)
+                .padding(all = 8.dp)
         ) {
             Text("Número de registros cargados correctamente: " + registrosCorrectos)
             Text("")
