@@ -106,7 +106,12 @@ fun ScreenCarga() {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             OutlinedButton(
-                onClick = { },
+                onClick = {
+                    allChecked = false
+                    GALchecked = false
+                    CVchecked = false
+                    CATchecked = false
+                          },
                 enabled = true
             ) {
                 Text("Cancelar")
