@@ -28,7 +28,7 @@ class ApiClient() : Closeable {
             level = LogLevel.INFO
         }
         install(HttpTimeout) {
-            requestTimeoutMillis = 60_000
+            requestTimeoutMillis = 90_000
             connectTimeoutMillis = 10_000
         }
         expectSuccess = false

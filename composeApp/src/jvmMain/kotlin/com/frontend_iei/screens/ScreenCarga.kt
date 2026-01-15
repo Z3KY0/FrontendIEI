@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
@@ -38,6 +40,8 @@ import org.jetbrains.skia.paragraph.TextBox
 @Preview
 fun ScreenCarga() {
     val scope = rememberCoroutineScope()
+    val scrollState = rememberScrollState()
+
     var allChecked by remember { mutableStateOf(false) }
     var GALchecked by remember { mutableStateOf(false) }
     var CVchecked by remember { mutableStateOf(true) }
@@ -170,6 +174,7 @@ fun ScreenCarga() {
 
         Column(
             modifier = Modifier
+                .verticalScroll(scrollState)
                 .border(1.dp, Color.Black)
                 .width(600.dp)
                 .padding(all = 8.dp)
