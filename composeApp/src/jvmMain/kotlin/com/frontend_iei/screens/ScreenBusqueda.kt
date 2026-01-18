@@ -163,13 +163,22 @@ fun ScreenBusqueda() {
             Spacer(modifier = Modifier.width(30.dp))
 
             // ---------- MAPA (simulado) ----------
+            // 1. Cargamos todas las estaciones al iniciar la pantalla de forma segura
+            val todasLasEstaciones by produceState<List<EstacionDTO>>(initialValue = emptyList()) {
+                val result = apiClient.getAll()
+                if (result is ApiResult.Success) value = result.data
+            }
+
+// 2. Decidimos qué mostrar: si hay resultados de búsqueda, mostramos esos.
+// Si no, mostramos todas (o nada, según prefieras).
+            val estacionesAMostrar = if (resultados.isNotEmpty()) resultados else todasLasEstaciones
+
             Box(modifier = Modifier.weight(1f).height(300.dp).border(1.dp, Color.Black)) {
                 OsmDesktopMap(
-                    resultados = resultados,
+                    resultados = estacionesAMostrar,
                     apiClient = apiClient,
                     scope = scope,
                     onEstacionClick = { estacion ->
-                        // Al hacer clic en el mapa, guardamos la estación en el estado
                         estacionSeleccionada = estacion
                     }
                 )

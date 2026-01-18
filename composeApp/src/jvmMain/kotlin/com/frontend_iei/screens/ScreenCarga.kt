@@ -44,7 +44,7 @@ fun ScreenCarga() {
 
     var allChecked by remember { mutableStateOf(false) }
     var GALchecked by remember { mutableStateOf(false) }
-    var CVchecked by remember { mutableStateOf(true) }
+    var CVchecked by remember { mutableStateOf(false) }
     var CATchecked by remember { mutableStateOf(false) }
     var cargando by remember { mutableStateOf(false) }
 
