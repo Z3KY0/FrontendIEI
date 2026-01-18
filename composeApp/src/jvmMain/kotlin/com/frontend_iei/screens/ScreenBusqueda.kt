@@ -171,7 +171,7 @@ fun ScreenBusqueda() {
 
 // 2. Decidimos qué mostrar: si hay resultados de búsqueda, mostramos esos.
 // Si no, mostramos todas (o nada, según prefieras).
-            val estacionesAMostrar = if (resultados.isNotEmpty()) resultados else todasLasEstaciones
+            val estacionesAMostrar = todasLasEstaciones
 
             Box(modifier = Modifier.weight(1f).height(300.dp).border(1.dp, Color.Black)) {
                 OsmDesktopMap(
